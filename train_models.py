@@ -66,6 +66,10 @@ for name, model in models.items():
     print(f"  Precision: {prec:.4f}")
     print(f"  Recall:    {rec:.4f}")
 
+import joblib
+joblib.dump(models["XGBoost"], "phishing_model.pkl")
+print("\nSaved XGBoost model to phishing_model.pkl")
+
 # ---------------------------------------------------------
 # STEP 5: Show final comparison table
 # ---------------------------------------------------------

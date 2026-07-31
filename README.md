@@ -3,7 +3,7 @@ ML-Based Phishing URL Detector is a cybersecurity project designed to identify m
 
 ## System Architecture
 
-![System Architecture](images/architecture.png)
+![System Architecture](images/architecture.png.jpeg)
 This diagram shows the flow of the system - from URL input, through feature extraction (30 features across 4 categories), to prediction by the trained XGBoost model, and finally the Safe/Phishing result show to the user.
 
 # Demo 

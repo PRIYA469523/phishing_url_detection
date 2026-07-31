@@ -39,6 +39,8 @@ As Person B on this project, my main contribution was building the live feature 
 
 ## Dataset and Model Training - Priyadharshini 
 
+As Person A on this project, my contribution covered the data science and application-building pipeline. I set up the project environment and explored the UCI Phishing Websites dataset (11,055 rows, 31 columns), verifying data quality by checking for missing values and duplicates, confirming class balance (56% legitimate / 44% phishing), and running correlation analysis to identify the strongest predictors of phishing. I then split the data into training and test sets, trained baseline Logistic Regression and Random Forest models, and evaluated them using accuracy, precision, recall, F1-score, and confusion matrix visualization, along with feature importance rankings from Random Forest. On the application side, I built the Streamlit web app's user interface — including the input box, prediction button, and result display — integrated the final trained model for real-time predictions, and added a model comparison table (Logistic Regression vs. Random Forest vs. XGBoost) along with confusion matrix visualization directly into the app.
+
 ## Team
  
 - [Meenakshi S] — Live feature extraction, web application, documentation

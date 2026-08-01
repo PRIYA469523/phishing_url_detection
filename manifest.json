@@ -1,0 +1,14 @@
+
+{
+  "manifest_version": 3,
+  "name": "Phishing URL Detector",
+  "version": "1.0",
+  "description": "Checks if the current website is a phishing site",
+  "permissions": ["activeTab", "tabs", "notifications"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

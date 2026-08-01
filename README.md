@@ -33,9 +33,13 @@ Phishing websites impersonate legitimate services to steal user credentials and 
 
 ## System Architecture
 
+<div align="center">
+ 
+
 ![System Architecture](images/architecture.png.jpeg)
 
 
+</div>
 This diagram shows the flow of the system - from URL input, through feature extraction (30 features across 4 categories), to prediction by the trained XGBoost model, and finally the Safe/Phishing result show to the user.
 
 
@@ -69,6 +73,7 @@ To make the tool more practical for everyday use, we added a warning popup featu
 
 <div align="center">
  
+
 | Model | Accuracy | Precision | Recall |
 |---|---|---|---|
 | Logistic Regression | 92.45% | 92.83% | 93.94% |
@@ -76,6 +81,7 @@ To make the tool more practical for everyday use, we added a warning popup featu
 | **XGBoost (selected)** | **97.06%** | **96.48%** | **98.41%** |
 
 </div>
+
 
 XGBoost was selected as the final model due to its highest accuracy and recall, making it more reliable at correctly identifying phishing sites while minimizing false negatives.
 

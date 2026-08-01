@@ -54,7 +54,7 @@ Red bars push the prediction toward "phishing," green bars push it toward "safe.
 
 To make the tool more practical for everyday use, we added a warning popup feature — when a user searches or opens a phishing website, a popup alert appears on screen warning them before they click any link on that page, helping prevent accidental exposure to phishing attacks.
 
-![Phishing Warning Popup](images/warning_popup.png)
+![Phishing Warning Popup](images/warning_popup.png.jpeg)
 
 ## Known Limitations / Future Work
 

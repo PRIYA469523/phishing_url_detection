@@ -103,21 +103,9 @@ XGBoost was selected as the final model due to its highest accuracy and recall, 
 
 As Person B on this project, my main contribution was building the live feature extraction module, which converts any new URL entered by a user into the 30 features required by our trained model. Nine of these features were straightforward to extract directly from the URL text itself — for example, checking for IP addresses, "@" symbols, excessive sub-domains, or the use of URL-shortening services. Four features required live internet lookups, using libraries like python-whois and dnspython to check domain age, domain registration length, SSL certificate status, and DNS records. The remaining four features (such as web traffic rank and Google index status) depend on services like Alexa, which was officially shut down in 2022, so these were implemented to safely return a neutral/unknown value instead of breaking the app. This module was then connected to a Streamlit web app, allowing a user to paste a URL and instantly see a Phishing/Safe prediction along with the underlying feature values.
 
-## Dataset and Model Training - Priyadharshini 
+## Dataset and Model Training and Evaluation- Priyadharshini 
 
-### Dataset, Model Training & Evaluation — [Friend's Name]
-
-As Person A on this project, my contribution covered the data science pipeline. I set up the project environment and explored the UCI Phishing Websites dataset (11,055 rows, 31 columns), verifying data quality by 
-checking for missing values and duplicates, confirming class balance 
-(56% legitimate / 44% phishing), and running correlation analysis to 
-identify the strongest predictors of phishing. I then split the data into 
-training and test sets, trained baseline Logistic Regression and Random 
-Forest models, and evaluated them using accuracy, precision, recall, and 
-confusion matrix visualization, along with feature importance rankings 
-from Random Forest. I also implemented a real-time browser warning feature 
-that displays a popup alert when a user attempts to click a link on a 
-detected phishing website, adding an extra layer of protection beyond 
-just displaying the prediction result.
+As Person A on this project, my contribution covered the data science pipeline. I set up the project environment and explored the UCI Phishing Websites dataset(11,055 rows, 31 columns), verifying data quality by checking for missing values and duplicates, confirming class balanc (56% legitimate / 44% phishing), and running correlation analysis to identify the strongest predictors of phishing. I then split the data into training and test sets, trained baseline Logistic Regression and Random Forest models, and evaluated them using accuracy, precision, recall, and confusion matrix visualization, along with feature importance rankings from Random Forest. I also implemented a real-time browser warning feature that displays a popup alert when a user attempts to click a link on a detected phishing website, adding an extra layer of protection beyond just displaying the prediction result.
 
 ## Team
  

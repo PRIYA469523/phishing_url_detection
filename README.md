@@ -10,25 +10,22 @@ Phishing websites impersonate legitimate services to steal user credentials and 
 
 ## Dataset
 
-  **Source:** UCI Machine Learning Repository — Phishing Websites Dataset 
-  (Mohammad, R., & McCluskey, L., 2012)
-  **Size:** 11,055 rows × 30 features + 1 target column
-  **Target labels:** -1 = Phishing, 1 = Legitimate (relabeled to 0/1 for 
-  model compatibility)
-  **Feature categories:**
-  - URL-based (e.g. IP address usage, URL length, use of "@", HTTPS token, 
-    URL shortening service)
+  - **Source:** UCI Machine Learning Repository — Phishing Websites Dataset (Mohammad, R., & McCluskey, L., 2012)
+  - **Size:** 11,055 rows × 30 features + 1 target column
+  - **Target labels:** -1 = Phishing, 1 = Legitimate (relabeled to 0/1 for model compatibility)
+  - **Feature categories:**
+  - URL-based (e.g. IP address usage, URL length, use of "@", HTTPS token, URL shortening service)
   - Domain-based (e.g. domain age, domain registration length, DNS record)
   - Abnormal-based (e.g. SSL certificate status)
 
 
 ## Tech Stack
 
-  **Language:** Python
-  **ML/Data:** pandas, scikit-learn, XGBoost
-  **Web App:** Streamlit
-  **Domain Lookups:** python-whois, dnspython
-  **Environment:** VS Code, Git/GitHub
+  - **Language:** Python
+  - **ML/Data:** pandas, scikit-learn, XGBoost
+  - **Web App:** Streamlit
+  - **Domain Lookups:** python-whois, dnspython
+  - **Environment:** VS Code, Git/GitHub
 
 
 ## System Architecture

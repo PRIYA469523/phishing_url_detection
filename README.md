@@ -2,9 +2,11 @@
 
 ML-Based Phishing URL Detector is a cybersecurity project designed to identify malicious phishing URLs using machine learning algorithms. It includes a user-friendly web dashboard where users can enter a URL and receive instant predictions, helping improve awareness and online security.
 
+
 ## Problem Statement 
 
 Phishing websites impersonate legitimate services to steal user credentials and sensitive data. This project builds a machine learning model that analyzes structural, domain, and abnormal characteristics of a URL to classify it as **Phishing** or **Legitimate**, then delivers real-time detection through a web application that warns users before they interact with a suspicious site.
+
 
 ## Dataset
 
@@ -19,6 +21,7 @@ Phishing websites impersonate legitimate services to steal user credentials and 
   - Domain-based (e.g. domain age, domain registration length, DNS record)
   - Abnormal-based (e.g. SSL certificate status)
 
+
 ## Tech Stack
 
   **Language:** Python
@@ -27,6 +30,7 @@ Phishing websites impersonate legitimate services to steal user credentials and 
   **Domain Lookups:** python-whois, dnspython
   **Environment:** VS Code, Git/GitHub
 
+
 ## System Architecture
 
 ![System Architecture](images/architecture.png.jpeg)
@@ -34,7 +38,9 @@ Phishing websites impersonate legitimate services to steal user credentials and 
 
 This diagram shows the flow of the system - from URL input, through feature extraction (30 features across 4 categories), to prediction by the trained XGBoost model, and finally the Safe/Phishing result show to the user.
 
+
 # Demo 
+
 ### Phishing URLs detected
 
 ![Phishing Example 1](images/phishing_e1.png)
@@ -50,11 +56,14 @@ The last two examples above also show SHAP explainability — the bar chart next
 
 Red bars push the prediction toward "phishing," green bars push it toward "safe." This makes the model's decisions transparent instead of a black box.
 
+
 ## Real-Time Browser Warning
 
 To make the tool more practical for everyday use, we added a warning popup feature — when a user searches or opens a phishing website, a popup alert appears on screen warning them before they click any link on that page, helping prevent accidental exposure to phishing attacks.
 
 ![Phishing Warning Popup](images/warning_popup.png.jpeg)
+
+
 
 ## Known Limitations / Future Work
 
@@ -62,11 +71,13 @@ To make the tool more practical for everyday use, we added a warning popup featu
 - The app currently checks one URL at a time; batch URL scanning could be added as a future feature.
 - The warning popup currently works within the app; converting it into a full browser extension would allow real-time protection while browsing normally.
 
+
 ## How to Run
 
 1. Install requirements: `pip install streamlit xgboost scikit-learn pandas dnspython python-whois`
 2. Run the app: `streamlit run app.py`
 3. Enter any URL in the input box and click "Check URL"
+
 
 ## Contributions 
 
@@ -78,10 +89,12 @@ As Person B on this project, my main contribution was building the live feature 
 
 As Person A on this project, my contribution covered the data science and application-building pipeline. I set up the project environment and explored the UCI Phishing Websites dataset (11,055 rows, 31 columns), verifying data quality by checking for missing values and duplicates, confirming class balance (56% legitimate / 44% phishing), and running correlation analysis to identify the strongest predictors of phishing. I then split the data into training and test sets, trained baseline Logistic Regression and Random Forest models, and evaluated them using accuracy, precision, recall, F1-score, and confusion matrix visualization, along with feature importance rankings from Random Forest. On the application side, I built the Streamlit web app's user interface — including the input box, prediction button, and result display — integrated the final trained model for real-time predictions, and added a model comparison table (Logistic Regression vs. Random Forest vs. XGBoost) along with confusion matrix visualization directly into the app.
 
+
 ## Team
  
 - [Meenakshi S] — Live feature extraction, web application, documentation
 - [Priyadharshini K] — Dataset collection, model training & evaluation
+
 
 ## Citation
 

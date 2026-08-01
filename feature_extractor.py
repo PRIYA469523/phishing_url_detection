@@ -202,10 +202,7 @@ def Statistical_report(url):
 # ---------------------------------------------------------------------
 
 def extract_features(url):
-    """
-    Runs all available feature checks on a URL and returns a dictionary
-    of results. HARD features return 0 (unknown) until an API is added.
-    """
+    soup, _ = get_soup(url)
     features = {
         "having_IP_Address": having_IP_Address(url),
         "URL_Length": URL_Length(url),
@@ -224,9 +221,21 @@ def extract_features(url):
         "Page_Rank": Page_Rank(url),
         "Google_Index": Google_Index(url),
         "Statistical_report": Statistical_report(url),
+        "Favicon": Favicon(url, soup),
+        "Request_URL": Request_URL(url, soup),
+        "URL_of_Anchor": URL_of_Anchor(url, soup),
+        "Links_in_tags": Links_in_tags(url, soup),
+        "SFH": SFH(url, soup),
+        "Submitting_to_email": Submitting_to_email(url, soup),
+        "Abnormal_URL": Abnormal_URL(url),
+        "Redirect": Redirect(url),
+        "on_mouseover": on_mouseover(url, soup),
+        "RightClick": RightClick(url, soup),
+        "popUpWidnow": popUpWidnow(url, soup),
+        "Iframe": Iframe(url, soup),
+        "Links_pointing_to_page": Links_pointing_to_page(url, soup),
     }
     return features
-
 
 # ---------------------------------------------------------------------
 # TEST IT YOURSELF - run this file directly to see it in action
@@ -244,3 +253,202 @@ if __name__ == "__main__":
         result = extract_features(test_url)
         for feature_name, value in result.items():
             print(f"  {feature_name}: {value}")
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import urlparse
+
+def get_soup(url):
+    """Fetches page HTML once, reused by all HTML-based checks below."""
+    try:
+        response = requests.get(url, timeout=5, headers={'User-Agent': 'Mozilla/5.0'})
+        return BeautifulSoup(response.text, 'html.parser'), response
+    except Exception:
+        return None, None
+
+def Favicon(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        icon = soup.find('link', rel=lambda x: x and 'icon' in x.lower())
+        if icon and icon.get('href'):
+            domain = urlparse(url).netloc
+            icon_domain = urlparse(icon['href']).netloc
+            if icon_domain and domain not in icon_domain:
+                return -1
+        return 1
+    except Exception:
+        return 0
+
+def Request_URL(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        domain = urlparse(url).netloc
+        tags = soup.find_all(['img', 'video', 'audio'])
+        total, external = 0, 0
+        for tag in tags:
+            src = tag.get('src')
+            if src:
+                total += 1
+                if domain not in urlparse(src).netloc and urlparse(src).netloc != '':
+                    external += 1
+        if total == 0:
+            return 1
+        ratio = external / total
+        return 1 if ratio < 0.3 else (0 if ratio < 0.6 else -1)
+    except Exception:
+        return 0
+
+def URL_of_Anchor(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        domain = urlparse(url).netloc
+        anchors = soup.find_all('a', href=True)
+        total, suspicious = 0, 0
+        for a in anchors:
+            href = a['href']
+            total += 1
+            if href.startswith('#') or href.lower().startswith('javascript:') or href == '':
+                suspicious += 1
+            elif domain not in urlparse(href).netloc and urlparse(href).netloc != '':
+                suspicious += 1
+        if total == 0:
+            return 1
+        ratio = suspicious / total
+        return 1 if ratio < 0.3 else (0 if ratio < 0.6 else -1)
+    except Exception:
+        return 0
+
+def Links_in_tags(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        domain = urlparse(url).netloc
+        tags = soup.find_all(['meta', 'script', 'link'])
+        total, external = 0, 0
+        for tag in tags:
+            src = tag.get('src') or tag.get('href')
+            if src:
+                total += 1
+                if domain not in urlparse(src).netloc and urlparse(src).netloc != '':
+                    external += 1
+        if total == 0:
+            return 1
+        ratio = external / total
+        return 1 if ratio < 0.3 else (0 if ratio < 0.6 else -1)
+    except Exception:
+        return 0
+
+def SFH(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        forms = soup.find_all('form')
+        for form in forms:
+            action = form.get('action', '')
+            if action == '' or action.lower() == 'about:blank':
+                return -1
+            domain = urlparse(url).netloc
+            if domain not in urlparse(action).netloc and urlparse(action).netloc != '':
+                return 0
+        return 1
+    except Exception:
+        return 0
+
+def Submitting_to_email(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        forms = soup.find_all('form')
+        for form in forms:
+            action = form.get('action', '')
+            if 'mailto:' in action.lower():
+                return -1
+        return 1
+    except Exception:
+        return 0
+
+def Abnormal_URL(url):
+    try:
+        domain = urlparse(url).netloc
+        response = requests.get(url, timeout=5, headers={'User-Agent': 'Mozilla/5.0'})
+        return 1 if domain in response.url else -1
+    except Exception:
+        return 0
+
+def Redirect(url):
+    try:
+        response = requests.get(url, timeout=5, headers={'User-Agent': 'Mozilla/5.0'})
+        redirect_count = len(response.history)
+        return 1 if redirect_count <= 1 else (0 if redirect_count <= 3 else -1)
+    except Exception:
+        return 0
+
+def on_mouseover(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        html = str(soup)
+        return -1 if 'onmouseover' in html.lower() and 'window.status' in html.lower() else 1
+    except Exception:
+        return 0
+
+def RightClick(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        html = str(soup)
+        return -1 if 'event.button==2' in html.lower() or 'contextmenu' in html.lower() else 1
+    except Exception:
+        return 0
+
+def popUpWidnow(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        html = str(soup)
+        return -1 if 'alert(' in html.lower() or 'prompt(' in html.lower() else 1
+    except Exception:
+        return 0
+
+def Iframe(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return -1
+        iframes = soup.find_all('iframe')
+        return -1 if len(iframes) > 0 else 1
+    except Exception:
+        return 0
+
+def Links_pointing_to_page(url, soup=None):
+    try:
+        if soup is None:
+            soup, _ = get_soup(url)
+        if soup is None:
+            return 0
+        links = soup.find_all('a', href=True)
+        count = len(links)
+        return 1 if count > 2 else (0 if count > 0 else -1)
+    except Exception:
+        return 0

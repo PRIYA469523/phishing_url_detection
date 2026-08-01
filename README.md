@@ -65,7 +65,18 @@ To make the tool more practical for everyday use, we added a warning popup featu
 
 
 
-## Known Limitations / Future Work
+## Model Performance
+
+| Model | Accuracy | Precision | Recall |
+|---|---|---|---|
+| Logistic Regression | 92.45% | — | — |
+| Random Forest | 96.70% | — | — |
+| **XGBoost (selected)** | **97.06%** | **96.48%** | **98.41%** |
+
+XGBoost was selected as the final model due to its highest accuracy and recall, making it more reliable at correctly identifying phishing sites while minimizing false negatives.
+
+
+ ## Known Limitations / Future Work
 
 - Four domain-reputation features (`web_traffic`, `Page_Rank`, `Google_Index`, `Statistical_report`) currently default to a neutral value, since they originally relied on Alexa rank data, and Alexa officially shut down in 2022.A future improvement would be integrating a free alternative such as the  Tranco rank or Google Safe Browsing API.
 - The app currently checks one URL at a time; batch URL scanning could be added as a future feature.
@@ -77,7 +88,7 @@ To make the tool more practical for everyday use, we added a warning popup featu
 1. Install requirements: `pip install streamlit xgboost scikit-learn pandas dnspython python-whois`
 2. Run the app: `streamlit run app.py`
 3. Enter any URL in the input box and click "Check URL"
-
+   
 
 ## Contributions 
 

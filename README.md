@@ -68,11 +68,13 @@ To make the tool more practical for everyday use, we added a warning popup featu
 ## Model Performance
 
 <div align="center">
+ 
 | Model | Accuracy | Precision | Recall |
 |---|---|---|---|
 | Logistic Regression | 92.45% | 92.83% | 93.94% |
 | Random Forest | 96.70% | 96.32% | 97.93% |
 | **XGBoost (selected)** | **97.06%** | **96.48%** | **98.41%** |
+
 </div>
 
 XGBoost was selected as the final model due to its highest accuracy and recall, making it more reliable at correctly identifying phishing sites while minimizing false negatives.

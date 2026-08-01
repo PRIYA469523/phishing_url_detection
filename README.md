@@ -2,6 +2,31 @@
 
 ML-Based Phishing URL Detector is a cybersecurity project designed to identify malicious phishing URLs using machine learning algorithms. It includes a user-friendly web dashboard where users can enter a URL and receive instant predictions, helping improve awareness and online security.
 
+## Problem Statement 
+
+Phishing websites impersonate legitimate services to steal user credentials and sensitive data. This project builds a machine learning model that analyzes structural, domain, and abnormal characteristics of a URL to classify it as **Phishing** or **Legitimate**, then delivers real-time detection through a web application that warns users before they interact with a suspicious site.
+
+## Dataset
+
+  **Source:** UCI Machine Learning Repository — Phishing Websites Dataset 
+  (Mohammad, R., & McCluskey, L., 2012)
+  **Size:** 11,055 rows × 30 features + 1 target column
+  **Target labels:** -1 = Phishing, 1 = Legitimate (relabeled to 0/1 for 
+  model compatibility)
+  **Feature categories:**
+  - URL-based (e.g. IP address usage, URL length, use of "@", HTTPS token, 
+    URL shortening service)
+  - Domain-based (e.g. domain age, domain registration length, DNS record)
+  - Abnormal-based (e.g. SSL certificate status)
+
+## Tech Stack
+
+  **Language:** Python
+  **ML/Data:** pandas, scikit-learn, XGBoost
+  **Web App:** Streamlit
+  **Domain Lookups:** python-whois, dnspython
+  **Environment:** VS Code, Git/GitHub
+
 ## System Architecture
 
 ![System Architecture](images/architecture.png.jpeg)
@@ -25,6 +50,18 @@ The last two examples above also show SHAP explainability — the bar chart next
 
 Red bars push the prediction toward "phishing," green bars push it toward "safe." This makes the model's decisions transparent instead of a black box.
 
+## Real-Time Browser Warning
+
+To make the tool more practical for everyday use, we added a warning popup feature — when a user searches or opens a phishing website, a popup alert appears on screen warning them before they click any link on that page, helping prevent accidental exposure to phishing attacks.
+
+![Phishing Warning Popup](images/warning_popup.png)
+
+## Known Limitations / Future Work
+
+- Four domain-reputation features (`web_traffic`, `Page_Rank`, `Google_Index`, `Statistical_report`) currently default to a neutral value, since they originally relied on Alexa rank data, and Alexa officially shut down in 2022.A future improvement would be integrating a free alternative such as the  Tranco rank or Google Safe Browsing API.
+- The app currently checks one URL at a time; batch URL scanning could be added as a future feature.
+- The warning popup currently works within the app; converting it into a full browser extension would allow real-time protection while browsing normally.
+
 ## How to Run
 
 1. Install requirements: `pip install streamlit xgboost scikit-learn pandas dnspython python-whois`
@@ -45,3 +82,8 @@ As Person A on this project, my contribution covered the data science and applic
  
 - [Meenakshi S] — Live feature extraction, web application, documentation
 - [Priyadharshini K] — Dataset collection, model training & evaluation
+
+## Citation
+
+Mohammad, R., & McCluskey, L. (2012). Phishing Websites Dataset. 
+UCI Machine Learning Repository.
